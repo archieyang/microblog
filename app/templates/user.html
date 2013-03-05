@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block body %}
+<h1>User: {{user.nickname}}</h1>
+{% if user.about_me%}
+	<p>user.about_me</p>
+{% endif %}
+{% if user.last_seen %}
+	<p>{{user.last_seen}}</p>
+{% endif %}
+<h2>
+{% for post in posts: %}
+	{% include 'post.html' %}
+{% endfor %}
+{% endblock %}

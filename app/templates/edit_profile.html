@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+{% block body %}
+	<form action='/edit_profile' method='Post'>
+		<p>
+			About Me: {{form.about_me}}
+		</p>
+		<input type='Submit' value='Submit'>
+	</form>
+{% endblock %}

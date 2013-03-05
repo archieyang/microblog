@@ -2,6 +2,6 @@
 {% block body%}
 <h1>Hi, {{user.nickname}}</h1>
 {% for post in posts %}
-<div><p>{{post.author.nickname}} says {{post.body}}</p></div>
+{% include 'post.html' %}
 {% endfor %}
 {% endblock %}
