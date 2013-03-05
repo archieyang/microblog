@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% block body %}
-	<form action='/edit_profile' method='Post'>
+	{% for error in form.errors.about_me%}
+		<p>errors:{{error}}</p>
+	{% endfor %}
+	<form action='/edit_profile' method='post'>
+		{{form.hidden_tag()}}
 		<p>
-			About Me: {{form.about_me}}
+			About Me: {{form.about_me(cols = 32, rows = 4)}}
 		</p>
 		<input type='Submit' value='Submit'>
 	</form>

@@ -1,8 +1,9 @@
 from app import app, lm, db
 from flask import render_template, redirect, flash, session, url_for, g
 from forms import LoginForm, SignUpForm, EditProfileForm
-import models
+from datetime import datetime
 from flask.ext.login import current_user, login_user, logout_user, login_required
+import models
 
 @lm.user_loader
 def load_user(id):
@@ -11,6 +12,10 @@ def load_user(id):
 @app.before_request
 def before_request():
 	g.user = current_user
+	if current_user.is_authenticated():
+		current_user.last_seen = datetime.utcnow()
+		db.session.add(current_user)
+		db.session.commit()
 
 
 @app.route('/')
@@ -66,11 +71,16 @@ def user(nickname):
 	]
 	return render_template('user.html',user = user, posts = posts)
 
-@app.route('/edit_profile', methods=['POST', 'GET'])
+@app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
 	form = EditProfileForm()
+	flash(g.user.nickname)
+
+	print form.validate_on_submit()
+	print form.about_me.data
 	if form.validate_on_submit():
+		print 'inside validate_on_submit'
 		g.user.about_me = form.about_me.data
 		db.session.add(g.user)
 		db.session.commit()
