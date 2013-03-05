@@ -1,7 +1,7 @@
 {% extends "base.html"%}
 {% block body%}
 <h1>Sign In</h1>
-<form action = '/login' methon = 'post'>
+<form action = '/login' method = 'post'>
 	{{form.hidden_tag()}}
 	<p>
 		OpenID:{{form.oid}}
