@@ -6,6 +6,12 @@
 	<form action='/edit_profile' method='post'>
 		{{form.hidden_tag()}}
 		<p>
+			Nickname: {{form.nickname}}
+		</p>
+		{% for error in form.errors.nickname %}
+			[{{error}}]
+		{% endfor %}
+		<p>
 			About Me: {{form.about_me(cols = 32, rows = 4)}}
 		</p>
 		<input type='Submit' value='Submit'>

@@ -33,7 +33,8 @@ def index():
 def signup():
 	form = SignUpForm()
 	if form.validate_on_submit():
-		u = models.User(nickname = form.nname.data, email = form.email.data, pwd = form.pwd.data)
+		nickname = models.User.make_unique_name(form.nname.data)
+		u = models.User(nickname = nickname, email = form.email.data, pwd = form.pwd.data)
 		db.session.add(u)
 		db.session.commit()
 		return redirect(url_for('login'))
@@ -74,20 +75,29 @@ def user(nickname):
 @app.route('/edit_profile', methods=['GET', 'POST'])
 @login_required
 def edit_profile():
-	form = EditProfileForm()
+	form = EditProfileForm(g.user.nickname)
 	flash(g.user.nickname)
-
-	print form.validate_on_submit()
-	print form.about_me.data
+	
 	if form.validate_on_submit():
 		print 'inside validate_on_submit'
 		g.user.about_me = form.about_me.data
+		g.user.nickname = form.nickname.data
 		db.session.add(g.user)
 		db.session.commit()
 		flash("About me save !")
 		return redirect(url_for('index'))
 		
 	return render_template('edit_profile.html', form = form)
+
+@app.errorhandler(404)
+def internal_error(error):
+	return render_template('404.html'), 404
+
+@app.errorhandler(500)
+def internal_error(error):
+	db.session.rollback()
+	return render_template('500.html'), 500
+
 
 
 	

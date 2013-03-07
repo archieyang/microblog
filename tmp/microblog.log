@@ -1,0 +1,111 @@
+2013-03-07 23:17:57,083 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-07 23:18:17,416 ERROR: Exception on /edit_profile [POST] [in /home/archie/venv/local/lib/python2.7/site-packages/flask/app.py: 1306
+Traceback (most recent call last):
+  File "/home/archie/venv/local/lib/python2.7/site-packages/flask/app.py", line 1687, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/archie/venv/local/lib/python2.7/site-packages/flask/app.py", line 1360, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/flask/app.py", line 1358, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/archie/venv/local/lib/python2.7/site-packages/flask/app.py", line 1344, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/flask_login.py", line 496, in decorated_view
+    return fn(*args, **kwargs)
+  File "/home/archie/microblog/app/views.py", line 85, in edit_profile
+    db.session.commit()
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/scoping.py", line 149, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 693, in commit
+    self.transaction.commit()
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 332, in commit
+    self._prepare_impl()
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 311, in _prepare_impl
+    self.session.flush()
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1788, in flush
+    self._flush(objects)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1870, in _flush
+    flush_context.execute()
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 372, in execute
+    rec.execute(self)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 525, in execute
+    uow
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 58, in save_obj
+    mapper, table, update)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 491, in _emit_update_statements
+    execute(statement, params)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 664, in execute
+    params)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 764, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 878, in _execute_context
+    context)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 871, in _execute_context
+    context)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 320, in do_execute
+    cursor.execute(statement, parameters)
+IntegrityError: (IntegrityError) column nickname is not unique u'UPDATE user SET nickname=?, about_me=? WHERE user.id = ?' (u'archie', u'ff', 3)
+2013-03-07 23:34:42,091 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-07 23:34:56,426 ERROR: Exception on /edit_profile [POST] [in /home/archie/venv/local/lib/python2.7/site-packages/flask/app.py: 1306
+Traceback (most recent call last):
+  File "/home/archie/venv/local/lib/python2.7/site-packages/flask/app.py", line 1687, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/archie/venv/local/lib/python2.7/site-packages/flask/app.py", line 1360, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/flask/app.py", line 1358, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/archie/venv/local/lib/python2.7/site-packages/flask/app.py", line 1344, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/flask_login.py", line 496, in decorated_view
+    return fn(*args, **kwargs)
+  File "/home/archie/microblog/app/views.py", line 86, in edit_profile
+    db.session.commit()
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/scoping.py", line 149, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 693, in commit
+    self.transaction.commit()
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 332, in commit
+    self._prepare_impl()
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 311, in _prepare_impl
+    self.session.flush()
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1788, in flush
+    self._flush(objects)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 1870, in _flush
+    flush_context.execute()
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 372, in execute
+    rec.execute(self)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 525, in execute
+    uow
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 58, in save_obj
+    mapper, table, update)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 491, in _emit_update_statements
+    execute(statement, params)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 664, in execute
+    params)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 764, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 878, in _execute_context
+    context)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 871, in _execute_context
+    context)
+  File "/home/archie/venv/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 320, in do_execute
+    cursor.execute(statement, parameters)
+IntegrityError: (IntegrityError) column nickname is not unique u'UPDATE user SET nickname=?, about_me=? WHERE user.id = ?' (u'archie', u'archie', 3)
+2013-03-07 23:35:25,155 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-07 23:35:25,389 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-07 23:36:00,962 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-07 23:37:09,799 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-07 23:43:41,674 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-07 23:46:23,260 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-07 23:46:51,754 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-07 23:47:08,146 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-07 23:49:01,056 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-07 23:50:48,775 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-07 23:50:49,000 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-08 00:10:29,235 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-08 00:11:46,748 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-08 00:12:25,384 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-08 00:13:18,700 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-08 00:14:16,939 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-08 00:14:26,321 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-08 00:14:48,114 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-08 00:14:48,338 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32

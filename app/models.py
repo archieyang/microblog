@@ -4,12 +4,6 @@ ROLE_USER = 0
 ROLE_ADMIM = 1
 
 class User(db.Model):
-	def __init__(self, nickname, email, pwd):
-		self.nickname = nickname
-		self.email = email
-		self.salt = int(time.time())
-		self.secure_hashed_pwd = User.__secure_hash(pwd, self.salt)
-
 	id = db.Column(db.Integer, primary_key = True)
 	nickname = db.Column(db.String(64), index = True, unique = True)
 	email = db.Column(db.String(120), index = True, unique = True)
@@ -17,11 +11,14 @@ class User(db.Model):
 	salt = db.Column(db.Integer)
 	secure_hashed_pwd = db.Column(db.String(120))
 	posts = db.relationship('Post', backref = 'author', lazy = 'dynamic')
-
 	about_me = db.Column(db.String(140))
 	last_seen = db.Column(db.DateTime)
 
-
+	def __init__(self, nickname, email, pwd):
+		self.nickname = nickname
+		self.email = email
+		self.salt = int(time.time())
+		self.secure_hashed_pwd = User.__secure_hash(pwd, self.salt)
 
 	@staticmethod
 	def authenticate(email, password):
@@ -36,6 +33,21 @@ class User(db.Model):
 	@staticmethod
 	def __secure_hash(pwd, salt):
 		return hashlib.sha1(pwd + '--' + str(salt) ).hexdigest()
+
+	@staticmethod
+	def make_unique_name(nickname):
+		if User.query.filter_by(nickname = nickname).first() == None:
+			return nickname
+		version = 2
+		while True:
+			new_nickname = nickname +str(version)
+			if User.query.filter_by(nickname = new_nickname).first() == None:
+				return new_nickname
+			version += 1
+		return new_nickname
+
+
+		
 
 		
 
