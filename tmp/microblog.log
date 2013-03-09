@@ -140,3 +140,4 @@ IntegrityError: (IntegrityError) column nickname is not unique u'UPDATE user SET
 2013-03-10 00:56:32,477 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
 2013-03-10 00:57:39,294 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
 2013-03-10 00:58:57,183 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
+2013-03-10 01:09:33,872 INFO: microblog startup [in /home/archie/microblog/app/__init__.py: 32
