@@ -13,3 +13,6 @@ MAIL_USERNAME = None
 MAIL_PASSWORD = None
 
 ADMINS = ['archieyang@foxmail.com']
+
+#pagination
+POSTS_PER_PAGE = 3

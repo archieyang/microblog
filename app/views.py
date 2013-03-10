@@ -1,13 +1,14 @@
 from app import app, lm, db
 from flask import render_template, redirect, flash, session, url_for, g
-from forms import LoginForm, SignUpForm, EditProfileForm
+from forms import LoginForm, SignUpForm, EditProfileForm, PostForm
 from datetime import datetime
 from flask.ext.login import current_user, login_user, logout_user, login_required
-import models
+from models import User, Post
+from config import POSTS_PER_PAGE
 
 @lm.user_loader
 def load_user(id):
-	return models.User.query.get(int(id))
+	return User.query.get(int(id))
 
 @app.before_request
 def before_request():
@@ -18,23 +19,27 @@ def before_request():
 		db.session.commit()
 
 
-@app.route('/')
-@app.route('/index')
+@app.route('/', methods = ['GET','POST'])
+@app.route('/index', methods = ['GET', 'POST'])
+@app.route('/index/<int:page>', methods = ['GET', 'POST'])
 @login_required
-def index():
-	user = current_user
-	posts = [
-	{'author': { 'nickname': 'John' },'body': 'Beautiful day in Portland!'},
-	{'author': { 'nickname': 'Susan' }, 'body': 'The Avengers movie was so cool!' }
-	]
-	return render_template("index.html",title = 'Home', user = user, posts = posts)
+def index(page = 1):
+	form = PostForm()
+	if form.validate_on_submit():
+		post = Post(body = form.post.data, timestamp = datetime.utcnow(), author = g.user)
+		db.session.add(post)
+		db.session.commit()
+		return redirect(url_for('index'))
+
+	posts = g.user.followed_posts().paginate(page, POSTS_PER_PAGE, False)
+	return render_template("index.html",title = 'Home', form = form, posts = posts)
 
 @app.route('/signup', methods = ['GET', 'POST'])
 def signup():
 	form = SignUpForm()
 	if form.validate_on_submit():
-		nickname = models.User.make_unique_name(form.nname.data)
-		u = models.User(nickname = nickname, email = form.email.data, pwd = form.pwd.data)
+		nickname = User.make_unique_name(form.nname.data)
+		u = User(nickname = nickname, email = form.email.data, pwd = form.pwd.data)
 		db.session.add(u)
 		db.session.commit()
 		return redirect(url_for('login'))
@@ -47,7 +52,7 @@ def login():
 
 	form = LoginForm()
 	if form.validate_on_submit():
-		u = models.User.authenticate(form.email.data, form.pwd.data)
+		u = User.authenticate(form.email.data, form.pwd.data)
 		if u is not None:
 			flash("Login Succeed!")
 			login_user(u, remember = form.remember_me.data)
@@ -61,15 +66,13 @@ def logout():
 	return redirect(url_for('index'))
 	
 @app.route('/user/<nickname>')
-def user(nickname):
-	user = models.User.query.filter_by(nickname = nickname).first()
+@app.route('/user/<nickname>/<int:page>')
+def user(nickname, page = 1):
+	user = User.query.filter_by(nickname = nickname).first()
 	if user is None:
 		flash("User not found...")
 		return redirect(url_for('index'))
-	posts = [
-		{'author':user, 'body': 'Test Post #1'},
-		{'author':user, 'body': 'Test Post #2'}
-	]
+	posts = user.sorted_posts().paginate(page, POSTS_PER_PAGE, False)
 	return render_template('user.html',user = user, posts = posts)
 
 @app.route('/edit_profile', methods=['GET', 'POST'])
@@ -92,7 +95,7 @@ def edit_profile():
 
 @app.route('/follow/<nickname>')
 def follow(nickname):
-	user = models.User.query.filter_by(nickname = nickname).first()
+	user = User.query.filter_by(nickname = nickname).first()
 	if user == None:
 		flash('User ' + nickname +' not found')
 		return redirect(url_for('index'))
@@ -113,7 +116,7 @@ def follow(nickname):
 
 @app.route('/unfollow/<nickname>')
 def unfollow(nickname):
-	user = models.User.query.filter_by(nickname = nickname).first()
+	user = User.query.filter_by(nickname = nickname).first()
 	if user == None:
 		flash('User ' + nickname +' not found')
 		return redirect(url_for('index'))
