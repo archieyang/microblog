@@ -16,3 +16,6 @@ ADMINS = ['archieyang@foxmail.com']
 
 #pagination
 POSTS_PER_PAGE = 3
+
+WHOOSE_BASE = os.path.join(basedir, 'search.db')
+MAX_SEARCH_RESULTS = 50
