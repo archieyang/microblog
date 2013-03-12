@@ -1,12 +1,17 @@
-from app import app, lm, db
-from flask import render_template, redirect, flash, url_for, g
+from app import app, lm, db, babel
+from flask import render_template, redirect, flash, url_for, g, request
 from forms import LoginForm, SignUpForm, EditProfileForm, PostForm, SearchForm
 from datetime import datetime
 from flask.ext.login import current_user, login_user, logout_user, login_required
 from models import User, Post
-from config import POSTS_PER_PAGE, MAX_SEARCH_RESULTS
+from config import POSTS_PER_PAGE, MAX_SEARCH_RESULTS, LANGUAGES
 from emails import follower_notfication
+from flask.ext.babel import gettext
 
+
+@babel.localeselector
+def get_locale():
+    return request.accept_languages.best_match(LANGUAGES.keys())
 
 @lm.user_loader
 def load_user(id):
@@ -63,7 +68,7 @@ def login():
             flash("Login Succeed!")
             login_user(u, remember=form.remember_me.data)
             return redirect(url_for('index'))
-        flash("Error in login...")
+        flash(gettext("Error in login..."))
     return render_template('login.html', title='Sign In', form=form)
 
 

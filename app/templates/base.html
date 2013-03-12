@@ -9,7 +9,7 @@
 	</head>
 	<body>
 		<div>Microblog: 
-			<a href="{{url_for('index')}}">Home</a> 
+			<a href="{{url_for('index')}}">{{ _('Home') }}</a> 
 			{% if g.user.is_authenticated() %}
 			|<form style="display: inline;" action="{{url_for('search')}}" method='post' name='search'>
 			{{g.search_form.hidden_tag()}}{{g.search_form.search(size = 20)}}<input type='submit' value='search'></form>|<a href="{{url_for('logout')}}">Logout</a>

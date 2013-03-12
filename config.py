@@ -1,3 +1,4 @@
+#-*- coding: utf-8 -*-
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -21,3 +22,10 @@ POSTS_PER_PAGE = 3
 
 WHOOSE_BASE = os.path.join(basedir, 'search.db')
 MAX_SEARCH_RESULTS = 50
+
+#available language
+LANGUAGES = {
+	'en':'English',
+	'zh':'中文'
+}
+
