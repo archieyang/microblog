@@ -7,14 +7,16 @@ SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 CSRF_ENABLED = True
 SECRET_KEY = 'Just-for-test'
 
-MAIL_SERVER = 'localhost'
-MAIL_PORT = 25
-MAIL_USERNAME = None
-MAIL_PASSWORD = None
+MAIL_SERVER = 'smtp.gmail.com'
+MAIL_PORT = 465
+MAIL_USE_TLS = False
+MAIL_USE_SSL = True
+MAIL_USERNAME = 'train.ticket.archie'
+MAIL_PASSWORD = 'ticketticket'
 
-ADMINS = ['archieyang@foxmail.com']
+ADMINS = ['train.ticket.archie@gmail.com']
 
-#pagination
+# pagination
 POSTS_PER_PAGE = 3
 
 WHOOSE_BASE = os.path.join(basedir, 'search.db')

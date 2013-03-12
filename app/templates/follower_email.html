@@ -1,0 +1,9 @@
+<html>
+<head></head>
+<body>
+<p>Dear {{user.nickname}},</p>
+<p><a href="{url_for('user', nickname=follower.nickname, _external=True)}">{{follower.nickname}}</a> is now a follower.</p>
+<p>Regars, </p>
+<p>The microblog</p>
+</body>
+</html>
