@@ -1,6 +1,14 @@
 	<div>
 		<p>
-			{{post.author.nickname}} says {{post.body}}
+			{{post.author.nickname}} says <p><span id='post{{post.id}}'>{{post.body}}</span></p>
 		</p>
         <p>{{momentjs(post.timestamp).fromNow()}}</p>
 	</div>
+
+	<p>{{post.language}}</p>
+	<div>
+		<span id='ajax{{post.id}}'>
+			<a href="javascript:test_ajax('{{post.id}}')">ajax</a>
+		</span>
+	</div>
+	<img id='loading{{post.id}}' style='display:None' src="/static/img/loading.gif">

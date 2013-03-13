@@ -1,5 +1,5 @@
 from app import app, lm, db, babel
-from flask import render_template, redirect, flash, url_for, g, request
+from flask import render_template, redirect, flash, url_for, g, request, jsonify
 from forms import LoginForm, SignUpForm, EditProfileForm, PostForm, SearchForm
 from datetime import datetime
 from flask.ext.login import current_user, login_user, logout_user, login_required
@@ -12,6 +12,7 @@ from flask.ext.babel import gettext
 @babel.localeselector
 def get_locale():
     return request.accept_languages.best_match(LANGUAGES.keys())
+
 
 @lm.user_loader
 def load_user(id):
@@ -35,7 +36,9 @@ def before_request():
 def index(page=1):
     form = PostForm()
     if form.validate_on_submit():
-        post = Post(body=form.post.data, timestamp=datetime.utcnow(), author=g.user)
+        post = Post(body=form.post.data,
+                    timestamp=datetime.utcnow(),
+                    author=g.user)
         db.session.add(post)
         db.session.commit()
         return redirect(url_for('index'))
@@ -159,6 +162,13 @@ def search():
 def search_result(query):
     results = Post.query.whoosh_search(query, MAX_SEARCH_RESULTS).all()
     return render_template('search_result.html', query=query, results=results)
+
+
+@app.route('/ajax', methods=['POST'])
+def function():
+    return jsonify({
+        'text': request.form['text'] + ' Received by Server!'
+    })
 
 
 @app.errorhandler(404)
