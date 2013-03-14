@@ -9,7 +9,7 @@ from app.models import User, Post
 from datetime import datetime, timedelta
 
 
-class TestClase(unittest.TestCase):
+class TestCase(unittest.TestCase):
     def setUp(self):
         app.config['TESTING'] = True
         app.config['CSRF_ENABLED'] = False
@@ -109,6 +109,19 @@ class TestClase(unittest.TestCase):
         assert f3 == [p4, p3]
         assert f4 == [p4]
 
+    # def test_delete_post(self):
+    #     u = User(nickname='Jafqqnny', email='jannyjqqanny@gmail.com', pwd='abcedf')
+    #     p = Post(body='test_post', author=u, timestamp=datetime.utcnow())
+    #     db.session.add(u)
+    #     db.session.add(p)
+    #     db.session.commit()
+
+    #     p = Post.query.get(1)
+    #     db.session.remove()
+
+    #     db.session = db.create_scoped_session()
+    #     db.session.delete(p)
+    #     db.session.commit()
 
 if __name__ == '__main__':
     unittest.main()

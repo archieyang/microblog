@@ -105,6 +105,6 @@ class Post(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
     def __repr__(self):
-        return '<Post %r>' % (self.body)
+        return '<Post %r author %r>' % (self.body, self.author.nickname)
 
-whooshalchemy.whoosh_index(app, Post)
+# whooshalchemy.whoosh_index(app, Post)

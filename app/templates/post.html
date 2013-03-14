@@ -11,4 +11,7 @@
 			<a href="javascript:test_ajax('{{post.id}}')">ajax</a>
 		</span>
 	</div>
+{% if post.author.id == g.user.id %}
+	<div><a href="{{ url_for('delete', id = post.id) }}">DELETE</a></div>
+{% endif %}
 	<img id='loading{{post.id}}' style='display:None' src="/static/img/loading.gif">
