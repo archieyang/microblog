@@ -2,6 +2,7 @@
 import os
 basedir = os.path.abspath(os.path.dirname(__file__))
 
+
 SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 SQLALCHEMY_MIGRATE_REPO = os.path.join(basedir, 'db_repository')
 
@@ -23,9 +24,12 @@ POSTS_PER_PAGE = 3
 WHOOSE_BASE = os.path.join(basedir, 'search.db')
 MAX_SEARCH_RESULTS = 50
 
-#available language
+# available language
 LANGUAGES = {
-	'en':'English',
-	'zh':'中文'
+    'en': 'English',
+    'zh': '中文'
 }
 
+# PROFILE
+SQLALCHEMY_RECORD_QUERIES = True
+DATABASE_QUERY_TIMEOUT = 0.5

@@ -1,4 +1,4 @@
-from app import db, app
+from app import db
 import hashlib
 import time
 import flask.ext.whooshalchemy as whooshalchemy
@@ -35,6 +35,8 @@ class User(db.Model):
         self.email = email
         self.salt = int(time.time())
         self.secure_hashed_pwd = User.__secure_hash(pwd, self.salt)
+        # import pdb
+        # pdb.set_trace()
 
     @staticmethod
     def authenticate(email, password):
@@ -93,18 +95,17 @@ class User(db.Model):
     def get_id(self):
         return unicode(self.id)
 
-    def __repr__(self):
+    def __repr__(self):  # pragma: no cover
         return '<User email: %r, nickname: %r, salt: %r>' % (self.email, self.nickname, self.salt)
 
 
 class Post(db.Model):
-    __searchable__ = ['body']
     id = db.Column(db.Integer, primary_key=True)
     body = db.Column(db.String(140))
     timestamp = db.Column(db.DateTime())
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __repr__(self):
-        return '<Post %r author %r>' % (self.body, self.author.nickname)
+    def __repr__(self):  # pragma: no cover
+        return '<Post %r author %r>' % (self.body, self.author)
 
 # whooshalchemy.whoosh_index(app, Post)
